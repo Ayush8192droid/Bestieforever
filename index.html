@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bestie Forever</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: black;
+      overflow: hidden;
+      text-align: center;
+    }
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.ibb.co/0qVHzcM/stars-bg.gif') repeat;
+      z-index: -1;
+    }
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+    }
+    .active {
+      display: flex;
+    }
+    h1, h2, p {
+      margin: 10px;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #ff5e9c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    img {
+      max-width: 80%;
+      border-radius: 10px;
+      margin: 10px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div><audio id="bg-music" src="Tum hi ho.mp3" loop></audio>
+
+  <!-- Screen 1 -->  <div id="screen1" class="screen active">
+    <h2>Thank you for visiting!</h2>
+    <p>Apna naam likh kar <b>Start</b> button dabaiye aur dekhiye... 💫</p>
+    <input type="text" id="username" placeholder="Apna naam likhiye..." />
+    <button onclick="startShow()">Start</button>
+  </div>  <!-- Screen 2 -->  <div id="screen2" class="screen">
+    <h2 id="greeting"></h2>
+    <p>Happy Friendship Day 💫💗</p>
+    <p>How are you?<br>Aaj kal to msg bhi nahi karti...<br>Or ignore bhi karne lagi ho 🥺</p>
+    <p>Chalo koi nahi... jaisa tumhara mann 🙂</p>
+  </div>  <!-- Screen 3 -->  <div id="screen3" class="screen">
+    <h2>Tumhare liye 💌</h2>
+    <p style="font-size: 20px; max-width: 600px;">
+      Tujhse roz baat na ho, par dil har waqt tera naam leta hai...<br>
+      Har problem mein tujhe yaad karta hoon, har khushi mein tujhe dhoondhta hoon.<br>
+      Tu sirf dost nahi hai, tu meri aadat ban chuki hai...<br>
+      Aur aadatein chhuti nahi jaati 💔🥹
+    </p>
+  </div>  <!-- Screen 4 -->  <div id="screen4" class="screen">
+    <h2>Memories (jo dil me hai 🥹)</h2>
+    <div id="slideshow"></div>
+  </div>  <!-- Screen 5 -->  <div id="screen5" class="screen">
+    <img src="photo6.jpg" style="max-height: 60vh; width: auto;" />
+    <h2>I miss you pagal 🥹</h2>
+    <h1>Happy Friendship Day 💫💗</h1>
+    <p>Thank you for watch</p>
+  </div>  <script>
+    const music = document.getElementById('bg-music');
+    function startShow() {
+      const name = document.getElementById('username').value;
+      if (name.trim() !== "") {
+        sessionStorage.setItem("username", name);
+        music.play();
+        switchScreen("screen1", "screen2");
+        document.getElementById("greeting").innerHTML = `Hello ${name} 👋`;
+        setTimeout(() => switchScreen("screen2", "screen3"), 10000);
+        setTimeout(() => switchScreen("screen3", "screen4"), 20000);
+        setTimeout(showSlideshow, 20000);
+        setTimeout(() => switchScreen("screen4", "screen5"), 32000);
+      } else {
+        alert("Apna naam likhiye!");
+      }
+    }
+
+    function switchScreen(hideId, showId) {
+      document.getElementById(hideId).classList.remove("active");
+      document.getElementById(showId).classList.add("active");
+    }
+
+    const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg"];
+    let index = 0;
+    function showSlideshow() {
+      const container = document.getElementById("slideshow");
+      const interval = setInterval(() => {
+        if (index >= photos.length) {
+          clearInterval(interval);
+          return;
+        }
+        container.innerHTML = `<img src="${photos[index]}" />`;
+        index++;
+      }, 2000);
+    }
+  </script></body>
+</html>
