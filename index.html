@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bestie Forever</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      color: white;
+      background: black;
+    }
+    .screen.active {
+      display: flex;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .quote, .final-text {
+      font-size: 18px;
+      max-width: 90%;
+    }
+    #slideImg, .final-img {
+      width: 80%;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px white;
+    }
+    .stars::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.postimg.cc/Y2yBppq4/stars.gif') repeat;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <audio id="bgMusic" src="Tum hi ho.mp3" preload="auto"></audio>  <!-- Screen 1 -->  <section id="screen1" class="screen active">
+    <h1>Apna naam likho aur dekho ✨</h1>
+    <input type="text" id="nameInput" placeholder="Apna naam likho..." />
+    <button onclick="startApp()">Start</button>
+  </section>  <!-- Screen 2 -->  <section id="screen2" class="screen">
+    <h2 id="greeting"></h2>
+    <p class="main">Happy Friendship Day 💫💗</p>
+  </section>  <!-- Screen 3 -->  <section id="screen3" class="screen">
+    <h2>Sach me 🥺</h2>
+    <p class="quote">
+      Tujhse roz baat na ho, par dil har waqt tera naam leta hai...<br>
+      Har problem mein tujhe yaad karta hoon, har khushi mein tujhe dhoondhta hoon.<br>
+      Tu sirf dost nahi hai, tu meri aadat ban chuki hai...<br>
+      Aur aadatein chhuti nahi jaati 💔🥹
+    </p>
+  </section>  <!-- Screen 4 -->  <section id="screen4" class="screen">
+    <h2>Happy Friendship Day 💫💗</h2>
+    <img id="slideImg" src="photo1.jpg" alt="memory" />
+  </section>  <!-- Screen 5 -->  <section id="screen5" class="screen">
+    <img src="photo6.jpg" alt="final" class="final-img" />
+    <p class="final-text">I miss you pagal 🥹</p>
+  </section>  <script>
+    const screens = [
+      document.getElementById('screen1'),
+      document.getElementById('screen2'),
+      document.getElementById('screen3'),
+      document.getElementById('screen4'),
+      document.getElementById('screen5')
+    ];
+
+    const slideImg = document.getElementById('slideImg');
+    const slidePhotos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg"];
+    let slideIndex = 0;
+
+    function startApp() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) return alert("Naam likhna zaroori hai!");
+
+      document.getElementById('greeting').innerText = `Hello 👋 ${name}`;
+      document.getElementById('bgMusic').play();
+      nextScreen(1);
+    }
+
+    function nextScreen(index) {
+      screens.forEach(s => s.classList.remove('active'));
+      screens[index].classList.add('active');
+
+      if (index < screens.length - 1) {
+        setTimeout(() => nextScreen(index + 1), [3000, 1200, 13000, 10000][index]);
+      }
+
+      if (index === 3) startSlideshow();
+    }
+
+    function startSlideshow() {
+      slideIndex = 0;
+      slideImg.src = slidePhotos[slideIndex];
+      const interval = setInterval(() => {
+        slideIndex++;
+        if (slideIndex >= slidePhotos.length) {
+          clearInterval(interval);
+          nextScreen(4);
+        } else {
+          slideImg.src = slidePhotos[slideIndex];
+        }
+      }, 2000);
+    }
+  </script></body>
+</html>
