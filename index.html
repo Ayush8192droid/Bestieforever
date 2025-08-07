@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bestie Forever</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .screen {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    .active {
+      display: flex;
+    }
+    h1.heading {
+      font-size: 2em;
+      font-weight: bold;
+      color: #00f0ff;
+      margin-bottom: 10px;
+    }
+    .name-input {
+      margin-bottom: 20px;
+      padding: 10px;
+      font-size: 1em;
+      width: 70%;
+    }
+    .start-btn {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background: #ff1493;
+      border: none;
+      color: white;
+      border-radius: 10px;
+    }
+    img {
+      max-width: 90%;
+      border-radius: 20px;
+      margin: 10px 0;
+    }
+    #audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio" autoplay loop>
+    <source src="Tum hi ho.mp3" type="audio/mpeg" />
+  </audio>  <!-- Screen 1 -->  <div class="screen active" id="screen1">
+    <h1 class="heading" style="margin-right: auto; padding-left: 30px">Apna naam likho 💗</h1>
+    <input type="text" class="name-input" id="nameInput" placeholder="Yahan likho..." />
+    <button class="start-btn" onclick="startApp()">Start</button>
+  </div>  <!-- Screen 2 -->  <div class="screen" id="screen2">
+    <h1 class="heading">Hello 👋 <span id="bestieName"></span></h1>
+    <h2 style="font-size: 1.6em; margin-top: 15px; color: #ffcc00">Happy friendship day 💫💗</h2>
+  </div>  <!-- Screen 3 -->  <div class="screen" id="screen3">
+    <h1 class="heading">Sach me 🥺</h1>
+    <p style="margin-top: 10px; font-size: 1.2em; line-height: 1.6">
+      Tujhse roz baat na ho, par dil har waqt tera naam leta hai...<br />
+      Har problem mein tujhe yaad karta hoon, har khushi mein tujhe dhoondhta hoon.<br />
+      Tu sirf dost nahi hai, tu meri aadat ban chuki hai...<br />
+      Aur aadatein chhuti nahi jaati 💔🥹
+    </p>
+  </div>  <!-- Screen 4 -->  <div class="screen" id="screen4">
+    <h1 class="heading">Happy friendship day 💫💗</h1>
+    <img src="photo1.jpg" alt="Memory 1" style="margin-top: 10px" />
+    <img src="photo2.jpg" alt="Memory 2" style="width: 95%" />
+    <img src="photo3.jpg" alt="Memory 3" style="margin-top: -5px" />
+    <img src="photo4.jpg" alt="Memory 4" />
+  </div>  <!-- Screen 5 -->  <div class="screen" id="screen5">
+    <h1 class="heading">Happy Friendship Day 💫💗</h1>
+    <img src="photo6.jpg" alt="Final Memory" style="width: 80%" />
+    <p style="margin-top: 10px; font-size: 1.6em; color: #ff69b4">I miss you pagal 🥹</p>
+  </div>  <script>
+    const screens = [
+      document.getElementById("screen1"),
+      document.getElementById("screen2"),
+      document.getElementById("screen3"),
+      document.getElementById("screen4"),
+      document.getElementById("screen5"),
+    ];
+
+    const audio = document.getElementById("audio");
+    let currentScreen = 0;
+
+    function startApp() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return alert("Naam likho pehle!");
+
+      document.getElementById("bestieName").textContent = name;
+      nextScreen();
+      audio.play();
+
+      setTimeout(() => nextScreen(), 3000); // screen 2 - 3 sec
+      setTimeout(() => nextScreen(), 3000 + 13000); // screen 3 - 13 sec
+      setTimeout(() => nextScreen(), 3000 + 13000 + 12000); // screen 4 - 12 sec
+      setTimeout(() => nextScreen(), 3000 + 13000 + 12000 + 10000); // screen 5
+    }
+
+    function nextScreen() {
+      if (currentScreen < screens.length - 1) {
+        screens[currentScreen].classList.remove("active");
+        currentScreen++;
+        screens[currentScreen].classList.add("active");
+      }
+    }
+  </script></body>
+</html>
