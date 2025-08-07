@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestie Forever</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background-color: black;
+      color: white;
+    }
+    .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      transition: opacity 1s ease-in-out;
+    }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    h1, h2 {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 32px;
+      color: #ffd700;
+    }
+    h2 {
+      font-size: 24px;
+      color: #ff69b4;
+      margin-bottom: 20px;
+    }
+    #nameInput {
+      padding: 10px;
+      font-size: 16px;
+      margin-left: -30px;
+    }
+    #startBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #slideImg {
+      max-height: 300px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <video id="twinkleVideo" src="Twinkle.mp4" muted autoplay loop></video>
+  <audio id="bgMusic" src="Tum hi ho.mp3"></audio>  <!-- Screen 1 -->  <div id="screen1" class="screen">
+    <h1>Bestie Forever 💕</h1>
+    <input id="nameInput" type="text" placeholder="Apna naam likho...">
+    <button id="startBtn">Start</button>
+  </div>  <!-- Screen 2 -->  <div id="screen2" class="screen hidden">
+    <h1>Hello 👋 <span id="bestieName"></span></h1>
+    <h2>Happy friendship day 💫 💗</h2>
+  </div>  <!-- Screen 3 -->  <div id="screen3" class="screen hidden">
+    <h1>Sachi 🥹 </h1>
+    <p style="font-size: 20px; margin: 20px; color: #00ffff;">
+      Tujhse roz baat na ho, par dil har waqt tera naam leta hai...<br>
+      Har problem mein tujhe yaad karta hoon, har khushi mein tujhe dhoondhta hoon.<br>
+      Tu sirf dost nahi hai, tu meri aadat ban chuki hai...<br>
+      Aur aadatein chhuti nahi jaati 💔🥹
+    </p>
+  </div>  <!-- Screen 4 -->  <div id="screen4" class="screen hidden">
+    <h1>Happy friendship day 💫💗</h1>
+    <img id="slideImg" src="photo1.jpg" alt="memory">
+  </div>  <!-- Screen 5 -->  <div id="screen5" class="screen hidden">
+    <img src="photo6.jpg" style="max-height: 300px; border-radius: 10px;">
+    <h2>I miss you pagal 🥹</h2>
+  </div>  <script>
+    const startBtn = document.getElementById('startBtn');
+    const nameInput = document.getElementById('nameInput');
+    const bestieName = document.getElementById('bestieName');
+    const bgMusic = document.getElementById('bgMusic');
+    const twinkleVideo = document.getElementById('twinkleVideo');
+
+    const screens = [
+      document.getElementById('screen1'),
+      document.getElementById('screen2'),
+      document.getElementById('screen3'),
+      document.getElementById('screen4'),
+      document.getElementById('screen5')
+    ];
+
+    const slideshowImages = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg"];
+    let currentSlide = 0;
+
+    function showScreen(index) {
+      screens.forEach((screen, i) => {
+        screen.classList.toggle('hidden', i !== index);
+      });
+    }
+
+    startBtn.addEventListener('click', () => {
+      bestieName.textContent = nameInput.value || "Bestie";
+      bgMusic.play();
+      twinkleVideo.style.display = 'block';
+      showScreen(1);
+      setTimeout(() => {
+        showScreen(2);
+        setTimeout(() => {
+          showScreen(3);
+          setTimeout(() => {
+            showScreen(4);
+            startSlideshow();
+            setTimeout(() => {
+              showScreen(5);
+            }, slideshowImages.length * 2000);
+          }, 13000);
+        }, 3000);
+      }, 3000);
+    });
+
+    function startSlideshow() {
+      const slideImg = document.getElementById('slideImg');
+      currentSlide = 0;
+      slideImg.src = slideshowImages[currentSlide];
+
+      const interval = setInterval(() => {
+        currentSlide++;
+        if (currentSlide >= slideshowImages.length) {
+          clearInterval(interval);
+        } else {
+          slideImg.src = slideshowImages[currentSlide];
+        }
+      }, 2000);
+    }
+  </script></body>
+</html>
